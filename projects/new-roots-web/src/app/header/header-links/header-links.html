@@ -1,0 +1,14 @@
+<div class="links-container">
+    <nr-links class="variant-header" [showSubLinks]=false [class.is-hidden]="!showMenuLinks"></nr-links>
+    <button type="button" class="menu" (click)="toggleMenu()" aria-label="Toggle navigation"
+        [aria-expanded]="showMenuLinks">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="3" width="18" height="4" rx="2" [attr.fill]="showMenuLinks ? 'none' : '#6ED8FF'"
+                [attr.stroke]="showMenuLinks ? '#6ED8FF' : 'none'" stroke-width="1" />
+            <rect x="3" y="10" width="18" height="4" rx="2" [attr.fill]="showMenuLinks ? 'none' : '#6ED8FF'"
+                [attr.stroke]="showMenuLinks ? '#6ED8FF' : 'none'" stroke-width="1" />
+            <rect x="3" y="17" width="18" height="4" rx="2" [attr.fill]="showMenuLinks ? 'none' : '#6ED8FF'"
+                [attr.stroke]="showMenuLinks ? '#6ED8FF' : 'none'" stroke-width="1" />
+        </svg>
+    </button>
+</div>

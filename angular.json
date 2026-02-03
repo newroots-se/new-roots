@@ -2,9 +2,95 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "schematicCollections": [
+      "angular-eslint"
+    ]
   },
   "newProjectRoot": "projects",
   "projects": {
+    "new-roots-web": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/new-roots-web",
+      "sourceRoot": "projects/new-roots-web/src",
+      "prefix": "nr",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/new-roots-web/src/main.ts",
+            "tsConfig": "projects/new-roots-web/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/new-roots-web/public"
+              }
+            ],
+            "styles": [
+              "projects/new-roots-web/src/styles.scss"
+            ],
+            "server": "projects/new-roots-web/src/main.server.ts",
+            "outputMode": "server",
+            "ssr": {
+              "entry": "projects/new-roots-web/src/server.ts"
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "new-roots-web:build:production"
+            },
+            "development": {
+              "buildTarget": "new-roots-web:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/new-roots-web/**/*.ts",
+              "projects/new-roots-web/**/*.html"
+            ],
+            "eslintConfig": "projects/new-roots-web/eslint.config.js"
+          }
+        }
+      }
+    }
   }
 }

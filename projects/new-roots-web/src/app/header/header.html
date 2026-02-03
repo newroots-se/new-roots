@@ -1,0 +1,7 @@
+<header role="banner" aria-live="polite" aria-atomic="true">
+    <img src="assets/logo.png" alt="new roots logo" id="logo" [class.is-hidden]="showSearchInput || showMenuLinks">
+    <nr-header-search [(showSearchInput)]="showSearchInput" [showMenuLinks]="showMenuLinks"></nr-header-search>
+    @if (!showSearchInput) {
+    <nr-header-links [(showMenuLinks)]="showMenuLinks"></nr-header-links>
+    }
+</header>

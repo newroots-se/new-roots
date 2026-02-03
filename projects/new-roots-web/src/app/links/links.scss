@@ -1,0 +1,425 @@
+:host(.variant-header) .links {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex: 1 0 0;
+    align-self: stretch;
+}
+
+:host(.variant-footer) .links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: stretch;
+}
+
+:host(.variant-header) .column {
+    display: contents;
+}
+
+:host(.variant-footer) .column {
+    display: contents;
+}
+
+:host(.variant-footer) .link-container {
+    display: flex;
+    padding: 8px 0;
+    // flex-direction: column;
+    justify-content: space-between; // Custom
+    align-items: flex-start;
+    gap: 8px;
+    align-self: stretch;
+    border-bottom: 0.75px solid var(--border-on-neutral-default, #D5D8DD);
+    // Custom
+    width: 90vw;
+}
+
+:host(.variant-footer) .link-container.is-expanded {
+    border-bottom: none;
+}
+
+.link {
+    text-decoration: none;
+}
+
+:host(.variant-header) .link {
+    display: flex;
+    padding: 8px;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-link-fixed-on-dark-light, #6ED8FF);
+    font-family: var(--typeface-brand, Sansation);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+:host(.variant-footer) .link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+    // Text
+    overflow: hidden;
+    color: var(--text-link-adaptive-footer, #4D4D4D);
+    text-overflow: ellipsis;
+    font-family: var(--typeface-brand, Sansation);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.6px;
+}
+
+:host(.variant-header) .menu {
+    display: none;
+}
+
+:host(.variant-footer) .menu {
+    border: none;
+    background: none;
+}
+
+:host(.variant-header) svg {
+    display: none;
+}
+
+.sub-link {
+    text-decoration: none;
+}
+
+:host(.variant-footer) .sub-link {
+    display: flex;
+    padding: 8px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    align-self: stretch;
+    overflow: hidden;
+    color: var(--text-link-adaptive-footer, #4D4D4D);
+    text-overflow: ellipsis;
+    font-family: var(--typeface, Inter);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.6px;
+}
+
+:host(.variant-footer) .sub-link.is-hidden {
+    display: none;
+}
+
+@media (min-width: 800px) {
+    :host(.variant-header) .links {
+        display: flex;
+        padding: 0 16px;
+        align-items: center;
+        gap: 4px;
+        align-self: stretch;
+    }
+
+    :host(.variant-footer) .links {
+        display: flex;
+        max-width: var(--tablet-max-width, 800px);
+        align-items: flex-start;
+        align-content: flex-start;
+        gap: 8px;
+        align-self: stretch;
+        flex-wrap: wrap;
+        // Custom
+        flex-direction: row;
+    }
+
+    :host(.variant-header) .column {
+        display: contents;
+    }
+
+    :host(.variant-footer) .column {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        flex: 1 0 0;
+        // Custom
+        width: 147px;
+    }
+
+    :host(.variant-footer) .link-container {
+        display: contents;
+    }
+
+    :host(.variant-header) .link {
+        display: flex;
+        padding: 8px;
+        align-items: center;
+        align-self: stretch;
+        // Text
+        color: var(--text-link-fixed-on-dark-light, #6ED8FF);
+        font-family: var(--typeface-brand, Sansation);
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        // Custom
+        transition: all 0.3s ease;
+    }
+
+    :host(.variant-footer) .link {
+        display: flex;
+        // height: 16px;
+        // padding: 4px;
+        padding-top: 4px; // Custom
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+        align-self: stretch;
+        // Text
+        overflow: hidden;
+        color: var(--text-link-adaptive-footer, #4D4D4D);
+        text-overflow: ellipsis;
+        font-family: var(--typeface-brand, Sansation);
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: -0.6px;
+        // Custom
+        transition: all 0.3s ease;
+    }
+
+    :host(.variant-header) .link:hover {
+        color: var(--text-link-fixed-on-dark-hover, #CCF1FF);
+        font-family: var(--typeface-brand, Sansation);
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+    :host(.variant-footer) .link:hover {
+        overflow: hidden;
+        color: var(--text-link-adaptive-default, #456BA1);
+        text-overflow: ellipsis;
+        font-family: var(--typeface-brand, Sansation);
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: -0.6px;
+    }
+
+    :host(.variant-header) .menu {
+        display: none;
+    }
+
+    :host(.variant-footer) .menu {
+        display: none;
+    }
+
+    :host(.variant-header) svg {
+        display: none;
+    }
+
+    :host(.variant-footer) svg {
+        display: none;
+    }
+
+    :host(.variant-footer) .sub-link {
+        display: flex;
+        // height: 16px;
+        // padding: 4px;
+        padding: 0px; // Custom
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+        align-self: stretch;
+        // Text
+        overflow: hidden;
+        color: var(--text-link-adaptive-footer, #4D4D4D);
+        text-overflow: ellipsis;
+        font-family: var(--typeface, Inter);
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: normal;
+        letter-spacing: -0.6px;
+        // Custom
+        align-items: flex-start;
+        transition: all 0.3s ease;
+    }
+
+    :host(.variant-footer) .sub-link:hover {
+        overflow: hidden;
+        color: var(--text-link-adaptive-default, #456BA1);
+        text-overflow: ellipsis;
+        font-family: var(--typeface, Inter);
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: normal;
+        letter-spacing: -0.6px;
+    }
+
+    :host(.variant-footer) .sub-link.is-hidden {
+        display: flex;
+    }
+}
+
+@media (min-width: 1280px) {
+    :host(.variant-header) .links {
+        display: flex;
+        padding: 0 16px;
+        align-items: center;
+        gap: 8px;
+        align-self: stretch;
+    }
+
+    :host(.variant-footer) .links {
+        display: flex;
+        max-width: var(--desktop-max-width, 1280px);
+        padding: 0 64px;
+        align-items: flex-start;
+        align-content: flex-start;
+        gap: 8px;
+        align-self: stretch;
+        flex-wrap: wrap;
+        // Custom
+        flex-direction: row;
+    }
+
+    :host(.variant-header) .column {
+        display: contents;
+    }
+
+    :host(.variant-footer) .column {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        flex: 1 0 0;
+        // Custom
+        width: 256px;
+    }
+
+    :host(.variant-footer) .link-container {
+        display: contents;
+    }
+
+    :host(.variant-header) .link {
+        display: flex;
+        padding: 8px;
+        align-items: center;
+        align-self: stretch;
+        // Text
+        color: var(--text-link-fixed-on-dark-light, #6ED8FF);
+        font-family: var(--typeface-brand, Sansation);
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        // Custom
+        transition: all 0.3s ease;
+    }
+
+    :host(.variant-footer) .link {
+        display: flex;
+        // height: 24px;
+        // padding: 8px;
+        padding-top: 8px; // Custom
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+        align-self: stretch;
+        // Text
+        overflow: hidden;
+        color: var(--text-link-adaptive-footer, #4D4D4D);
+        text-overflow: ellipsis;
+        font-family: var(--typeface-brand, Sansation);
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: -0.8px;
+        // Custom
+        transition: all 0.3s ease;
+    }
+
+    :host(.variant-header) .link:hover {
+        color: var(--text-link-fixed-on-dark-hover, #CCF1FF);
+        font-family: var(--typeface-brand, Sansation);
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+    :host(.variant-footer) .link:hover {
+        overflow: hidden;
+        color: var(--text-link-adaptive-default, #456BA1);
+        text-overflow: ellipsis;
+        font-family: var(--typeface-brand, Sansation);
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: -0.8px;
+    }
+
+    :host(.variant-header) .menu {
+        display: none;
+    }
+
+    :host(.variant-footer) .menu {
+        display: none;
+    }
+
+    :host(.variant-header) svg {
+        display: none;
+    }
+
+    :host(.variant-footer) svg {
+        display: none;
+    }
+
+    :host(.variant-footer) .sub-link {
+        display: flex;
+        // height: 24px;
+        // padding: 8px;
+        padding: 0px; // Custom
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+        align-self: stretch;
+        // Text
+        overflow: hidden;
+        color: var(--text-link-adaptive-footer, #4D4D4D);
+        text-overflow: ellipsis;
+        font-family: var(--typeface, Inter);
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: normal;
+        letter-spacing: -0.8px;
+        // Custom
+        align-items: flex-start;
+        transition: all 0.3s ease;
+    }
+
+    :host(.variant-footer) .sub-link:hover {
+        overflow: hidden;
+        color: var(--text-link-adaptive-default, #456BA1);
+        text-overflow: ellipsis;
+        font-family: var(--typeface, Inter);
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: normal;
+        letter-spacing: -0.8px;
+    }
+
+    :host(.variant-footer) .sub-link.is-hidden {
+        display: flex;
+    }
+}

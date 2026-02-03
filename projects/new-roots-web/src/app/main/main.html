@@ -1,0 +1,108 @@
+<ng-template #categoryHex let-link>
+    <a [routerLink]="link.route" class="hex-container">
+        <div [innerHTML]="scopeHexagon()" class="hexagon"
+            [style.--positive-color]="'var(--categories-positive-' + link.name + ')'"
+            [style.--negative-color]="'var(--categories-negative-' + link.name + ')'"
+            [style.--reactive-color]="'var(--categories-80-' + link.name + ')'"
+            [style.--inactive-color]="'var(--categories-20-' + link.name + ')'"></div>
+        <div class="hex-content-positive">
+            <div [innerHTML]="link.icon"></div>
+            <span class="hex-text">{{link.name}}</span>
+        </div>
+        <div class="hex-content-negative">
+            <span class="hex-text">{{link.text}}</span>
+        </div>
+    </a>
+</ng-template>
+
+<ng-template #specialHex let-type>
+    <a [routerLink]="type.route" class="hex-container">
+        <div [innerHTML]="type.hexagon()" class="hexagon" [style.--positive-color]="type.colors.positive"
+            [style.--negative-color]="type.colors.negative" [style.--reactive-color]="type.colors.reactive"
+            [style.--inactive-color]="type.colors.inactive"></div>
+
+        <div class="hex-content-positive">
+            @if(type.sponsor) { <span class="sponsor-text">{{type.name}}</span> }
+            <div [innerHTML]="type.icon()"></div>
+            <span [class]="type.sponsor ? 'sponsor-name' : 'wizard-text'">
+                {{type.sponsor || type.name}}
+            </span>
+        </div>
+
+        <div class="hex-content-negative">
+            <span [class]="type.sponsor ? 'sponsor-text' : 'wizard-text'">{{type.text}}</span>
+            @if(type.sponsor) { <span class="sponsor-name">{{type.sponsor}}</span> }
+        </div>
+    </a>
+</ng-template>
+
+<ng-template #emptyHex let-color="color">
+    <div [innerHTML]="emptyHexagon()" class="hexagon" [style.color]="color"></div>
+</ng-template>
+
+<div id="hero">
+    <div id="hexagons">
+        <div id="hex-row-1">
+            @if (rows().row4.length === 0) {
+            <ng-container *ngTemplateOutlet="emptyHex; context: { color: emptyHexColors().row1Start }"></ng-container>
+            }
+            <ng-container *ngTemplateOutlet="specialHex; context: { $implicit: wizard }"></ng-container>
+            @for (link of rows().row1; track link) {
+            <ng-container *ngTemplateOutlet="categoryHex; context: { $implicit: link }"></ng-container>
+            }
+            <ng-container *ngTemplateOutlet="emptyHex; context: { color: emptyHexColors().row1End }"></ng-container>
+        </div>
+        <div id="hex-row-2">
+            <ng-container *ngTemplateOutlet="emptyHex; context: { color: emptyHexColors().row2Start }"></ng-container>
+            @for (link of rows().row2; track link) {
+            <ng-container *ngTemplateOutlet="categoryHex; context: { $implicit: link }"></ng-container>
+            }
+            @if (rows().row3.length !== 0) {
+            <ng-container *ngTemplateOutlet="emptyHex; context: { color: emptyHexColors().row1Start }"></ng-container>
+            } @else {
+            <ng-container *ngTemplateOutlet="specialHex; context: { $implicit: wizard }"></ng-container>
+            <ng-container *ngTemplateOutlet="emptyHex; context: { color: emptyHexColors().row2End }"></ng-container>
+            }
+        </div>
+        @if (rows().row3.length !== 0) {
+        <div id="hex-row-3">
+            <ng-container *ngTemplateOutlet="emptyHex; context: { color: emptyHexColors().row3Start }"></ng-container>
+            @for (link of rows().row3; track link) {
+            <ng-container *ngTemplateOutlet="categoryHex; context: { $implicit: link }"></ng-container>
+            }
+            @if (rows().row4.length === 0) {
+            <ng-container *ngTemplateOutlet="specialHex; context: { $implicit: wizard }"></ng-container>
+            }
+            <ng-container *ngTemplateOutlet="emptyHex; context: { color: emptyHexColors().row2End }"></ng-container>
+        </div>
+        }
+        @if (rows().row4.length !== 0) {
+        <div id="hex-row-4">
+            <ng-container *ngTemplateOutlet="emptyHex; context: { color: emptyHexColors().row4Start }"></ng-container>
+            @for (link of rows().row4; track link) {
+            <ng-container *ngTemplateOutlet="categoryHex; context: { $implicit: link }"></ng-container>
+            }
+            <ng-container *ngTemplateOutlet="specialHex; context: { $implicit: wizard }"></ng-container>
+        </div>
+        }
+    </div>
+</div>
+
+<div id="intro">
+    <h1 id="intro-heading">we lived to tell the tale...</h1>
+    <div>
+        Hello! Welcome to <span id="newroots">newroots</span>, a human-centred, inclusive platform that brings
+        together step-by-step guidance and essential information needed for settling into a new life in Sweden, in one
+        simple, intuitive experience.
+        <br><br>
+        Whether you are planning on moving to Sweden, have just arrived, or if you have already settled, you will find
+        all the essential information you need - plus useful related information, to help you on your journey.
+        <br><br>
+        We value your opinion and have built in a simple way for relaying feedback. Feel free to use it, if you think it
+        might help others navigating similar situations.
+        <br><br>
+        Beyond pure guidance, we are developing New Roots to be a personalised experience, and a destination where
+        internationals can connect, share and thrive in Sweden within a safe digital community. We are also working to
+        bring other culturally deep, rich experiences to the platform.
+    </div>
+</div>

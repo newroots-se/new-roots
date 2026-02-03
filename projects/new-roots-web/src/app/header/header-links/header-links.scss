@@ -1,0 +1,77 @@
+.menu {
+    display: flex;
+    padding: 8px;
+    align-items: center;
+    gap: 10px;
+    border: none;
+    background: none;
+    overflow: hidden;
+}
+
+.links-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.variant-header {
+    max-width: 84vw;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; // Smooth scrolling on iOS
+    -ms-overflow-style: none; // Hide scrollbar in IE and Edge
+    scrollbar-width: none; // Thin scrollbar for Firefox
+    scroll-behavior: smooth; // Add smooth scrolling
+    box-shadow:
+        8px 0 15px 0 rgba(0, 0, 0, 0.06),
+        -8px 0 15px 0 rgba(0, 0, 0, 0.06),
+        5px 0 8px 0 rgba(0, 0, 0, 0.07),
+        -5px 0 8px 0 rgba(0, 0, 0, 0.07),
+        3px 0 4px 0 rgba(0, 0, 0, 0.07),
+        -3px 0 4px 0 rgba(0, 0, 0, 0.07),
+        1px 0 2px 0 rgba(0, 0, 0, 0.07),
+        -1px 0 2px 0 rgba(0, 0, 0, 0.07);
+}
+
+.variant-header::-webkit-scrollbar {
+    display: none; // Hide scrollbar in WebKit browsers (Chrome, Safari, modern Edge)
+}
+
+.variant-header.is-hidden {
+    display: none;
+}
+
+@media (min-width: 800px) {
+    .menu {
+        display: none;
+    }
+
+    .links-container {
+        display: contents;
+    }
+
+    .variant-header {
+        box-shadow: initial;
+    }
+
+    .variant-header.is-hidden {
+        display: initial;
+    }
+}
+
+@media (min-width: 1280px) {
+    .menu {
+        display: none;
+    }
+
+    .links-container {
+        display: contents;
+    }
+
+    .variant-header {
+        box-shadow: initial;
+    }
+
+    .variant-header.is-hidden {
+        display: initial;
+    }
+}
