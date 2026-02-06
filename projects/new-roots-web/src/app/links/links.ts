@@ -1,7 +1,7 @@
-import { Component, computed, inject, Input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
-import { LinksService } from '../LinksService';
+import { LinksService } from '../shared/links.service';
 
 interface SubLink {
   name: string;
@@ -24,17 +24,17 @@ interface NavLink {
   styleUrl: './links.scss',
 })
 export class Links {
-  @Input() showSubLinks = false;
-
-  links = inject(LinksService).links;
+  readonly showSubLinks = input(false);
+  private readonly linksService = inject(LinksService);
+  readonly links = this.linksService.links;
 
   chunkedLinks = computed(() => {
-    const links = this.links();
+    const allLinks = this.links();
     const size = 2;
     const chunks = [];
 
-    for (let i = 0; i < links.length; i += size) {
-      chunks.push(links.slice(i, i + size));
+    for (let i = 0; i < allLinks.length; i += size) {
+      chunks.push(allLinks.slice(i, i + size));
     }
     return chunks;
   });

@@ -1,4 +1,4 @@
-import { Injectable, signal, inject, afterNextRender } from '@angular/core';
+import { Injectable, signal, inject, afterNextRender, computed } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { fromEvent } from 'rxjs';
 
@@ -6,13 +6,14 @@ import { fromEvent } from 'rxjs';
 export class ScreenService {
   private document = inject(DOCUMENT);
 
-  // Initialize with 0 or a sensible default for the server
   readonly screenWidth = signal(0);
 
+  readonly isSmallScreen = computed(() => this.screenWidth() <= 450);
+  readonly isLargeScreen = computed(() => this.screenWidth() >= 1280);
+  readonly isBreakPoint = computed(() => this.screenWidth() >= 800);
+
   constructor() {
-    // This logic will ONLY run in the browser after the first render
     afterNextRender(() => {
-      // Set initial value now that we know we are in the browser
       this.screenWidth.set(this.document.documentElement.clientWidth);
 
       fromEvent(window, 'resize').subscribe(() => {

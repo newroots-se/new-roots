@@ -2,21 +2,18 @@
     @for (column of chunkedLinks(); track $index) {
     <div class="column">
         @for (link of column; track link.name) {
-        @if (showSubLinks || link.name !== 'about us') {
+        @if (showSubLinks() || link.name !== 'about us') {
         <div class="link-container" [class.is-expanded]="link.isExpanded" (click)="toggleSubLinks(link)"
-            (keydown.enter)="toggleSubLinks(link)" role="button" tabindex="0">
+            (keydown.enter)="toggleSubLinks(link)" role="button" tabindex="0" [attr.aria-expanded]="link.isExpanded">
             <a [routerLink]="link.route" class="link">{{ link.name }}</a>
-            <button type="button" class="menu" aria-label="Expand or Collapse sublinks"
-                [aria-expanded]="link.isExpanded">
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                    <path
-                        d="M0.220418 4.32429C-0.073491 4.03038 -0.073454 3.55393 0.220418 3.26C0.514345 2.96607 0.990781 2.96607 1.28471 3.26L5.11312 7.08791C5.603 7.57775 6.39707 7.57778 6.88693 7.08791L10.7153 3.26C11.0093 2.96609 11.4857 2.96608 11.7796 3.26C12.0734 3.55393 12.0735 4.0304 11.7796 4.32429L7.95122 8.1522C6.87349 9.22994 5.12607 9.22994 4.04834 8.1522L0.220418 4.32429Z"
-                        fill="#4D4D4D" />
-                </svg>
-            </button>
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path
+                    d="M0.220418 4.32429C-0.073491 4.03038 -0.073454 3.55393 0.220418 3.26C0.514345 2.96607 0.990781 2.96607 1.28471 3.26L5.11312 7.08791C5.603 7.57775 6.39707 7.57778 6.88693 7.08791L10.7153 3.26C11.0093 2.96609 11.4857 2.96608 11.7796 3.26C12.0734 3.55393 12.0735 4.0304 11.7796 4.32429L7.95122 8.1522C6.87349 9.22994 5.12607 9.22994 4.04834 8.1522L0.220418 4.32429Z"
+                    fill="#4D4D4D" />
+            </svg>
         </div>
-        @if (showSubLinks && link.subLinks.length > 0) {
-        @for (subLink of link.subLinks; track subLink) {
+        @if (showSubLinks() && link.subLinks.length > 0) {
+        @for (subLink of link.subLinks; track subLink.route) {
         <a [routerLink]="subLink.route" class="sub-link" [class.is-hidden]="!link.isExpanded">{{ subLink.name }}</a>
         }
         }

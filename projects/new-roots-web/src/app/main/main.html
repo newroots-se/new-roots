@@ -47,31 +47,31 @@
             <ng-container *ngTemplateOutlet="emptyHex; context: { color: emptyHexColors().row1Start }"></ng-container>
             }
             <ng-container *ngTemplateOutlet="specialHex; context: { $implicit: wizard }"></ng-container>
-            @for (link of rows().row1; track link) {
+            @for (link of rows().row1; track link.name) {
             <ng-container *ngTemplateOutlet="categoryHex; context: { $implicit: link }"></ng-container>
             }
             <ng-container *ngTemplateOutlet="emptyHex; context: { color: emptyHexColors().row1End }"></ng-container>
         </div>
         <div id="hex-row-2">
             <ng-container *ngTemplateOutlet="emptyHex; context: { color: emptyHexColors().row2Start }"></ng-container>
-            @for (link of rows().row2; track link) {
+            @for (link of rows().row2; track link.name) {
             <ng-container *ngTemplateOutlet="categoryHex; context: { $implicit: link }"></ng-container>
             }
             @if (rows().row3.length !== 0) {
             <ng-container *ngTemplateOutlet="emptyHex; context: { color: emptyHexColors().row1Start }"></ng-container>
             } @else {
-            <ng-container *ngTemplateOutlet="specialHex; context: { $implicit: wizard }"></ng-container>
+            <ng-container *ngTemplateOutlet="specialHex; context: { $implicit: sponsor }"></ng-container>
             <ng-container *ngTemplateOutlet="emptyHex; context: { color: emptyHexColors().row2End }"></ng-container>
             }
         </div>
         @if (rows().row3.length !== 0) {
         <div id="hex-row-3">
             <ng-container *ngTemplateOutlet="emptyHex; context: { color: emptyHexColors().row3Start }"></ng-container>
-            @for (link of rows().row3; track link) {
+            @for (link of rows().row3; track link.name) {
             <ng-container *ngTemplateOutlet="categoryHex; context: { $implicit: link }"></ng-container>
             }
             @if (rows().row4.length === 0) {
-            <ng-container *ngTemplateOutlet="specialHex; context: { $implicit: wizard }"></ng-container>
+            <ng-container *ngTemplateOutlet="specialHex; context: { $implicit: sponsor }"></ng-container>
             }
             <ng-container *ngTemplateOutlet="emptyHex; context: { color: emptyHexColors().row2End }"></ng-container>
         </div>
@@ -79,10 +79,10 @@
         @if (rows().row4.length !== 0) {
         <div id="hex-row-4">
             <ng-container *ngTemplateOutlet="emptyHex; context: { color: emptyHexColors().row4Start }"></ng-container>
-            @for (link of rows().row4; track link) {
+            @for (link of rows().row4; track link.name) {
             <ng-container *ngTemplateOutlet="categoryHex; context: { $implicit: link }"></ng-container>
             }
-            <ng-container *ngTemplateOutlet="specialHex; context: { $implicit: wizard }"></ng-container>
+            <ng-container *ngTemplateOutlet="specialHex; context: { $implicit: sponsor }"></ng-container>
         </div>
         }
     </div>
@@ -91,7 +91,7 @@
 <div id="intro">
     <h1 id="intro-heading">we lived to tell the tale...</h1>
     <div>
-        Hello! Welcome to <span id="newroots">newroots</span>, a human-centred, inclusive platform that brings
+        Hello! Welcome to <span id="newroots">new roots</span>, a human-centred, inclusive platform that brings
         together step-by-step guidance and essential information needed for settling into a new life in Sweden, in one
         simple, intuitive experience.
         <br><br>

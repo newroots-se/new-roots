@@ -1,8 +1,8 @@
 import { Component, computed, inject } from '@angular/core';
-import { LinksService } from '../LinksService';
+import { LinksService } from '../shared/links.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
-import { ScreenService } from '../ScreenService';
+import { ScreenService } from '../core/screen.service';
 import { NgTemplateOutlet } from '@angular/common';
 import { HEX_SVGs, ICON_SVGs } from './main.constants';
 
@@ -15,14 +15,11 @@ import { HEX_SVGs, ICON_SVGs } from './main.constants';
 export class Main {
   private sanitizer = inject(DomSanitizer);
   private links = inject(LinksService).links;
-  private screenWidth = inject(ScreenService).screenWidth;
-  private isSmallScreen = computed(() => this.screenWidth() <= 450);
-  private isLargeScreen = computed(() => this.screenWidth() >= 1280);
-  private isBreakPoint = computed(() => this.screenWidth() >= 800);
+  private screen = inject(ScreenService);
 
   rows = computed(() => {
     const data = this.links();
-    if (this.isLargeScreen()) {
+    if (this.screen.isLargeScreen()) {
       return {
         row1: data.slice(0, 4),
         row2: data.slice(4, 8),
@@ -30,7 +27,7 @@ export class Main {
         row4: [],
       };
     }
-    if (this.isSmallScreen()) {
+    if (this.screen.isSmallScreen()) {
       return {
         row1: data.slice(0, 2),
         row2: data.slice(2, 4),
@@ -47,11 +44,11 @@ export class Main {
   });
 
   emptyHexagon = computed(() =>
-    this.sanitizer.bypassSecurityTrustHtml(HEX_SVGs.empty(this.isBreakPoint())),
+    this.sanitizer.bypassSecurityTrustHtml(HEX_SVGs.empty(this.screen.isBreakPoint())),
   );
 
   scopeHexagon = computed(() =>
-    this.sanitizer.bypassSecurityTrustHtml(HEX_SVGs.scope(this.isBreakPoint())),
+    this.sanitizer.bypassSecurityTrustHtml(HEX_SVGs.scope(this.screen.isBreakPoint())),
   );
 
   emptyHexColors = computed(() => {
@@ -82,15 +79,15 @@ export class Main {
     route: '/wizard',
     colors: {
       positive: 'var(--icon-web-page-default, #FFF)',
-      negative: 'var(--fixed-dark-accent2, #BF092F)',
+      negative: 'var(--categories-negative-accent2, #BF092F)',
       reactive: 'var(--categories-80-accent2, #450613)',
       inactive: 'var(--categories-10-accent2, #FFEAF0)',
     },
     hexagon: computed(() =>
-      this.sanitizer.bypassSecurityTrustHtml(HEX_SVGs.wizard(this.isBreakPoint())),
+      this.sanitizer.bypassSecurityTrustHtml(HEX_SVGs.wizard(this.screen.isBreakPoint())),
     ),
     icon: computed(() =>
-      this.sanitizer.bypassSecurityTrustHtml(ICON_SVGs.wizard(this.isBreakPoint())),
+      this.sanitizer.bypassSecurityTrustHtml(ICON_SVGs.wizard(this.screen.isBreakPoint())),
     ),
   };
 
@@ -101,15 +98,15 @@ export class Main {
     text: 'this content is brought to you by:',
     colors: {
       positive: 'var(--icon-web-page-default, #FFF)',
-      negative: 'var(--icon-secondary-default, #456BA1)',
+      negative: 'var(--categories-negative-secondary, #456BA1)',
       reactive: 'var(--categories-80-secondary, #1B365A)',
       inactive: 'var(--categories-10-secondary, #E5F8FF)',
     },
     hexagon: computed(() =>
-      this.sanitizer.bypassSecurityTrustHtml(HEX_SVGs.sponsor(this.isBreakPoint())),
+      this.sanitizer.bypassSecurityTrustHtml(HEX_SVGs.sponsor(this.screen.isBreakPoint())),
     ),
     icon: computed(() =>
-      this.sanitizer.bypassSecurityTrustHtml(ICON_SVGs.sponsor(this.isBreakPoint())),
+      this.sanitizer.bypassSecurityTrustHtml(ICON_SVGs.sponsor(this.screen.isBreakPoint())),
     ),
   };
 }
