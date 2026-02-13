@@ -1,14 +1,12 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ScreenService } from '../core/screen.service';
-import { ICON_SVGs } from './links.constants';
+import { HexData, ICON_SVGs } from './links.constants';
 
 @Injectable({ providedIn: 'root' })
 export class LinksService {
-  private sanitizer = inject(DomSanitizer);
   private screen = inject(ScreenService);
 
-  private readonly linksData = signal([
+  private readonly linksData = signal<HexData[]>([
     {
       name: 'migration',
       route: '/migration',
@@ -83,7 +81,6 @@ export class LinksService {
         { name: 'local clinics', route: '/health/local-clinics' },
         { name: 'e.u. blue card', route: '/health/e-u-blue-card' },
       ],
-      isExpanded: false,
     },
     {
       name: 'legal',
@@ -106,7 +103,6 @@ export class LinksService {
         { name: 'authentic food', route: '/culture/authentic-food' },
         { name: 'entertainment', route: '/culture/entertainment' },
       ],
-      isExpanded: false,
     },
     {
       name: 'about us',
@@ -118,6 +114,7 @@ export class LinksService {
         { name: 'contact us', route: '/about-us/contact-us' },
         { name: 'f.a.q.', route: '/about-us/frequently-asked-questions' },
       ],
+      isExpanded: false,
     },
   ]);
 
@@ -125,14 +122,13 @@ export class LinksService {
     const isBreak = this.screen.isBreakPoint();
     return this.linksData().map((linkData) => ({
       ...linkData,
-      icon: this.getSafeIcon(linkData.name, isBreak),
+      icon: () => this.getSafeIcon(linkData.name ?? '', isBreak),
       isExpanded: false,
     }));
   });
 
-  private getSafeIcon(name: string, isBreak: boolean): SafeHtml {
+  private getSafeIcon(name: string, isBreak: boolean): string {
     const svgIconKey = name as keyof typeof ICON_SVGs;
-    const svg = ICON_SVGs[svgIconKey]?.(isBreak) ?? '';
-    return this.sanitizer.bypassSecurityTrustHtml(svg);
+    return ICON_SVGs[svgIconKey]?.(isBreak) ?? '';
   }
 }

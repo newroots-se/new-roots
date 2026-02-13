@@ -1,79 +1,68 @@
 import { Component, computed, inject } from '@angular/core';
 import { LinksService } from '../shared/links.service';
-import { DomSanitizer } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { ScreenService } from '../core/screen.service';
-import { NgTemplateOutlet } from '@angular/common';
-import { HEX_SVGs, ICON_SVGs } from './main.constants';
+import { EMPTY_HEX_COLORS, HEX_SVGs, ICON_SVGs } from './main.constants';
+import { SafeHtmlPipe } from '../shared/safe-html.pipe';
+import { HexData, HexRow } from '../shared/links.constants';
 
 @Component({
   selector: 'nr-main',
-  imports: [RouterLink, NgTemplateOutlet],
+  imports: [RouterLink, SafeHtmlPipe],
   templateUrl: './main.html',
   styleUrl: './main.scss',
 })
 export class Main {
-  private sanitizer = inject(DomSanitizer);
   private links = inject(LinksService).links;
   private screen = inject(ScreenService);
 
-  rows = computed(() => {
-    const data = this.links();
+  readonly allRows = computed<HexRow[]>(() => {
+    const data: HexData[] = this.links();
+    const empty = this.emptyHexColors();
     if (this.screen.isLargeScreen()) {
-      return {
-        row1: data.slice(0, 4),
-        row2: data.slice(4, 8),
-        row3: [],
-        row4: [],
-      };
+      return [
+        [empty.row1Start, this.wizard, ...data.slice(0, 4), empty.row1End],
+        [empty.row2Start, ...data.slice(4, 8), this.sponsor, empty.row2End],
+      ];
     }
     if (this.screen.isSmallScreen()) {
-      return {
-        row1: data.slice(0, 2),
-        row2: data.slice(2, 4),
-        row3: data.slice(4, 6),
-        row4: data.slice(6, 8),
-      };
+      return [
+        [this.wizard, ...data.slice(0, 2), empty.row1End],
+        [empty.row2Start, ...data.slice(2, 4), empty.row2End],
+        [empty.row3Start, ...data.slice(4, 6), empty.row3End],
+        [empty.row4Start, ...data.slice(6, 8), this.sponsor],
+      ];
     }
+    return [
+      [empty.row1Start, this.wizard, ...data.slice(0, 2), empty.row1End],
+      [empty.row2Start, ...data.slice(2, 6), empty.row2End],
+      [empty.row3Start, ...data.slice(6, 8), this.sponsor, empty.row3End],
+    ];
+  });
+
+  readonly scopedHexagon = () => HEX_SVGs.scoped(this.screen.isBreakPoint());
+
+  readonly emptyHexColors = computed(() => {
     return {
-      row1: data.slice(0, 2),
-      row2: data.slice(2, 6),
-      row3: data.slice(6, 8),
-      row4: [],
+      row1Start: { colors: EMPTY_HEX_COLORS('culture') },
+      row1End: { colors: EMPTY_HEX_COLORS('health') },
+      row2Start: this.screen.isLargeScreen()
+        ? { colors: EMPTY_HEX_COLORS('school') }
+        : this.screen.isSmallScreen()
+          ? { colors: EMPTY_HEX_COLORS('culture') }
+          : { colors: EMPTY_HEX_COLORS('legal') },
+      row2End: this.screen.isLargeScreen()
+        ? { colors: EMPTY_HEX_COLORS('housing') }
+        : { colors: EMPTY_HEX_COLORS('culture') },
+      row3Start: this.screen.isSmallScreen()
+        ? { colors: EMPTY_HEX_COLORS('legal') }
+        : { colors: EMPTY_HEX_COLORS('school') },
+      row3End: { colors: EMPTY_HEX_COLORS('housing') },
+      row4Start: { colors: EMPTY_HEX_COLORS('school') },
     };
   });
 
-  emptyHexagon = computed(() =>
-    this.sanitizer.bypassSecurityTrustHtml(HEX_SVGs.empty(this.screen.isBreakPoint())),
-  );
-
-  scopeHexagon = computed(() =>
-    this.sanitizer.bypassSecurityTrustHtml(HEX_SVGs.scope(this.screen.isBreakPoint())),
-  );
-
-  emptyHexColors = computed(() => {
-    const r3 = this.rows().row3.length;
-    const r4 = this.rows().row4.length;
-
-    return {
-      row1Start: 'var(--categories-positive-culture, #CCF1B1)',
-      row1End: 'var(--categories-positive-health, #F1B1BC)',
-      row2Start:
-        r3 === 0 && r4 === 0
-          ? 'var(--categories-positive-school, #ECB1F1)'
-          : r4 === 0
-            ? 'var(--categories-positive-legal, #F6EAAC)'
-            : 'var(--categories-positive-culture, #CCF1B1)',
-      row2End: 'var(--categories-positive-housing, #B1F1D1)',
-      row3Start:
-        r4 === 0
-          ? 'var(--categories-positive-school, #ECB1F1)'
-          : 'var(--categories-positive-legal, #F6EAAC)',
-      row4Start: 'var(--categories-positive-school, #ECB1F1)',
-    };
-  });
-
-  wizard = {
+  readonly wizard: HexData = {
     name: 'wizard',
     text: 'use our wizard to find your next step in settling in',
     route: '/wizard',
@@ -83,15 +72,11 @@ export class Main {
       reactive: 'var(--categories-80-accent2, #450613)',
       inactive: 'var(--categories-10-accent2, #FFEAF0)',
     },
-    hexagon: computed(() =>
-      this.sanitizer.bypassSecurityTrustHtml(HEX_SVGs.wizard(this.screen.isBreakPoint())),
-    ),
-    icon: computed(() =>
-      this.sanitizer.bypassSecurityTrustHtml(ICON_SVGs.wizard(this.screen.isBreakPoint())),
-    ),
+    hexagon: () => HEX_SVGs.wizard(this.screen.isBreakPoint()),
+    icon: () => ICON_SVGs.wizard(this.screen.isBreakPoint()),
   };
 
-  sponsor = {
+  readonly sponsor: HexData = {
     name: 'sponsor',
     sponsor: 'Volvo Cars',
     route: '/sponsor',
@@ -102,11 +87,7 @@ export class Main {
       reactive: 'var(--categories-80-secondary, #1B365A)',
       inactive: 'var(--categories-10-secondary, #E5F8FF)',
     },
-    hexagon: computed(() =>
-      this.sanitizer.bypassSecurityTrustHtml(HEX_SVGs.sponsor(this.screen.isBreakPoint())),
-    ),
-    icon: computed(() =>
-      this.sanitizer.bypassSecurityTrustHtml(ICON_SVGs.sponsor(this.screen.isBreakPoint())),
-    ),
+    hexagon: () => HEX_SVGs.sponsor(this.screen.isBreakPoint()),
+    icon: () => ICON_SVGs.sponsor(this.screen.isBreakPoint()),
   };
 }

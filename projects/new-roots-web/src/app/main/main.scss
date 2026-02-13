@@ -25,11 +25,7 @@
     gap: 4px;
     // Custom
     margin-top: -24px;
-
-    .hex-container {
-        margin-left: -17px;
-        margin-right: -17px;
-    }
+    padding-right: 50px;
 }
 
 #hex-row-3 {
@@ -47,11 +43,7 @@
     gap: 4px;
     // Custom
     margin-top: -39px;
-
-    .hex-container {
-        margin-left: -17px;
-        margin-right: -17px;
-    }
+    padding-right: 50px;
 }
 
 .hex-container {
@@ -208,6 +200,8 @@
         padding-left: 50px;
         align-items: center;
         gap: 4px;
+        // Custom
+        padding-right: 50px;
     }
 
     #hex-row-2 {
@@ -216,11 +210,7 @@
         gap: 4px;
         // Custom
         margin-top: -38px;
-
-        .hex-container {
-            margin-left: initial;
-            margin-right: initial;
-        }
+        padding-right: initial;
     }
 
     #hex-row-3 {
@@ -229,6 +219,7 @@
         align-items: center;
         gap: 4px;
         // Custom
+        padding-right: 50px;
         margin-top: -37px;
     }
 
@@ -237,8 +228,6 @@
         place-items: center;
         position: relative;
         // Custom
-        margin-left: -17px;
-        margin-right: -14px;
         transition: transform 0.3s ease;
         cursor: pointer;
         text-decoration: none;
@@ -412,8 +401,6 @@
         place-items: center;
         position: relative;
         // Custom
-        margin-left: initial;
-        margin-right: initial;
         transition: transform 0.3s ease;
         cursor: pointer;
         text-decoration: none;

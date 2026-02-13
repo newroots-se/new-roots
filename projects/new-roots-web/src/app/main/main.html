@@ -1,88 +1,34 @@
-<ng-template #categoryHex let-link>
-    <a [routerLink]="link.route" class="hex-container">
-        <div [innerHTML]="scopeHexagon()" class="hexagon"
-            [style.--positive-color]="'var(--categories-positive-' + link.name + ')'"
-            [style.--negative-color]="'var(--categories-negative-' + link.name + ')'"
-            [style.--reactive-color]="'var(--categories-80-' + link.name + ')'"
-            [style.--inactive-color]="'var(--categories-20-' + link.name + ')'"></div>
-        <div class="hex-content-positive">
-            <div [innerHTML]="link.icon"></div>
-            <span class="hex-text">{{link.name}}</span>
-        </div>
-        <div class="hex-content-negative">
-            <span class="hex-text">{{link.text}}</span>
-        </div>
-    </a>
-</ng-template>
-
-<ng-template #specialHex let-type>
-    <a [routerLink]="type.route" class="hex-container">
-        <div [innerHTML]="type.hexagon()" class="hexagon" [style.--positive-color]="type.colors.positive"
-            [style.--negative-color]="type.colors.negative" [style.--reactive-color]="type.colors.reactive"
-            [style.--inactive-color]="type.colors.inactive"></div>
-
-        <div class="hex-content-positive">
-            @if(type.sponsor) { <span class="sponsor-text">{{type.name}}</span> }
-            <div [innerHTML]="type.icon()"></div>
-            <span [class]="type.sponsor ? 'sponsor-name' : 'wizard-text'">
-                {{type.sponsor || type.name}}
-            </span>
-        </div>
-
-        <div class="hex-content-negative">
-            <span [class]="type.sponsor ? 'sponsor-text' : 'wizard-text'">{{type.text}}</span>
-            @if(type.sponsor) { <span class="sponsor-name">{{type.sponsor}}</span> }
-        </div>
-    </a>
-</ng-template>
-
-<ng-template #emptyHex let-color="color">
-    <div [innerHTML]="emptyHexagon()" class="hexagon" [style.color]="color"></div>
-</ng-template>
-
 <div id="hero">
     <div id="hexagons">
-        <div id="hex-row-1">
-            @if (rows().row4.length === 0) {
-            <ng-container *ngTemplateOutlet="emptyHex; context: { color: emptyHexColors().row1Start }"></ng-container>
+        @for (row of allRows(); track $index) {
+        <div [id]="'hex-row-' + ($index + 1)">
+            @for (hex of row; track hex) {
+            <a [routerLink]="hex.route" class="hex-container">
+                <div [innerHTML]="(hex.hexagon?.() ?? scopedHexagon()) | safeHtml" class="hexagon"
+                    [style.--positive-color]="hex.colors?.positive || 'var(--categories-positive-' + hex.name + ')'"
+                    [style.--negative-color]="hex.colors?.negative || 'var(--categories-negative-' + hex.name + ')'"
+                    [style.--reactive-color]="hex.colors?.reactive || 'var(--categories-80-' + hex.name + ')'"
+                    [style.--inactive-color]="hex.colors?.inactive || 'var(--categories-20-' + hex.name + ')'">
+                </div>
+
+                @if (hex.route) {
+                <div class="hex-content-positive">
+                    @if(hex.sponsor) { <span class="sponsor-text">{{hex.name}}</span> }
+                    <div [innerHTML]="(hex.icon?.() ?? '') | safeHtml"></div>
+                    <span [class]="hex.subLinks ? 'hex-text' : (hex.sponsor ? 'sponsor-name' : 'wizard-text')">
+                        {{hex.sponsor || hex.name}}
+                    </span>
+                </div>
+
+                <div class="hex-content-negative">
+                    <span [class]="hex.subLinks ? 'hex-text' : (hex.sponsor ? 'sponsor-text' : 'wizard-text')">
+                        {{hex.text}}
+                    </span>
+                    @if(hex.sponsor) { <span class="sponsor-name">{{hex.sponsor}}</span> }
+                </div>
+                }
+            </a>
             }
-            <ng-container *ngTemplateOutlet="specialHex; context: { $implicit: wizard }"></ng-container>
-            @for (link of rows().row1; track link.name) {
-            <ng-container *ngTemplateOutlet="categoryHex; context: { $implicit: link }"></ng-container>
-            }
-            <ng-container *ngTemplateOutlet="emptyHex; context: { color: emptyHexColors().row1End }"></ng-container>
-        </div>
-        <div id="hex-row-2">
-            <ng-container *ngTemplateOutlet="emptyHex; context: { color: emptyHexColors().row2Start }"></ng-container>
-            @for (link of rows().row2; track link.name) {
-            <ng-container *ngTemplateOutlet="categoryHex; context: { $implicit: link }"></ng-container>
-            }
-            @if (rows().row3.length !== 0) {
-            <ng-container *ngTemplateOutlet="emptyHex; context: { color: emptyHexColors().row1Start }"></ng-container>
-            } @else {
-            <ng-container *ngTemplateOutlet="specialHex; context: { $implicit: sponsor }"></ng-container>
-            <ng-container *ngTemplateOutlet="emptyHex; context: { color: emptyHexColors().row2End }"></ng-container>
-            }
-        </div>
-        @if (rows().row3.length !== 0) {
-        <div id="hex-row-3">
-            <ng-container *ngTemplateOutlet="emptyHex; context: { color: emptyHexColors().row3Start }"></ng-container>
-            @for (link of rows().row3; track link.name) {
-            <ng-container *ngTemplateOutlet="categoryHex; context: { $implicit: link }"></ng-container>
-            }
-            @if (rows().row4.length === 0) {
-            <ng-container *ngTemplateOutlet="specialHex; context: { $implicit: sponsor }"></ng-container>
-            }
-            <ng-container *ngTemplateOutlet="emptyHex; context: { color: emptyHexColors().row2End }"></ng-container>
-        </div>
-        }
-        @if (rows().row4.length !== 0) {
-        <div id="hex-row-4">
-            <ng-container *ngTemplateOutlet="emptyHex; context: { color: emptyHexColors().row4Start }"></ng-container>
-            @for (link of rows().row4; track link.name) {
-            <ng-container *ngTemplateOutlet="categoryHex; context: { $implicit: link }"></ng-container>
-            }
-            <ng-container *ngTemplateOutlet="specialHex; context: { $implicit: sponsor }"></ng-container>
         </div>
         }
     </div>

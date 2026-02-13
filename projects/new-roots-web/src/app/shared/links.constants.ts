@@ -1,3 +1,29 @@
+export interface HexColors {
+  positive: string;
+  negative: string;
+  reactive: string;
+  inactive: string;
+}
+
+export interface SubLink {
+  name: string;
+  route: string;
+}
+
+export interface HexData {
+  name?: string;
+  text?: string;
+  route?: string;
+  sponsor?: string;
+  colors?: HexColors;
+  hexagon?: () => string;
+  icon?: () => string;
+  subLinks?: SubLink[];
+  isExpanded?: boolean;
+}
+
+export type HexRow = HexData[];
+
 export const ICON_SVGs = {
   migration: (isBreak: boolean) =>
     isBreak

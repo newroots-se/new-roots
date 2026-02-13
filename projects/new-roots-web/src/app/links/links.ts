@@ -1,21 +1,7 @@
 import { Component, computed, inject, input } from '@angular/core';
-import { SafeHtml } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { LinksService } from '../shared/links.service';
-
-interface SubLink {
-  name: string;
-  route: string;
-}
-
-interface NavLink {
-  name: string;
-  route: string;
-  text: string;
-  icon: SafeHtml;
-  subLinks: SubLink[];
-  isExpanded: boolean;
-}
+import { HexData } from '../shared/links.constants';
 
 @Component({
   selector: 'nr-links',
@@ -39,7 +25,7 @@ export class Links {
     return chunks;
   });
 
-  toggleSubLinks(link: NavLink): void {
+  toggleSubLinks(link: HexData): void {
     link.isExpanded = !link.isExpanded;
   }
 }
