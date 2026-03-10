@@ -15,13 +15,13 @@
                 <div class="hex-content-positive">
                     @if(hex.sponsor) { <span class="sponsor-text">{{hex.name}}</span> }
                     <div [innerHTML]="(hex.icon?.() ?? '') | safeHtml"></div>
-                    <span [class]="hex.subLinks ? 'hex-text' : (hex.sponsor ? 'sponsor-name' : 'wizard-text')">
+                    <span [class]="hex.children ? 'hex-text' : (hex.sponsor ? 'sponsor-name' : 'wizard-text')">
                         {{hex.sponsor || hex.name}}
                     </span>
                 </div>
 
                 <div class="hex-content-negative">
-                    <span [class]="hex.subLinks ? 'hex-text' : (hex.sponsor ? 'sponsor-text' : 'wizard-text')">
+                    <span [class]="hex.children ? 'hex-text' : (hex.sponsor ? 'sponsor-text' : 'wizard-text')">
                         {{hex.text}}
                     </span>
                     @if(hex.sponsor) { <span class="sponsor-name">{{hex.sponsor}}</span> }

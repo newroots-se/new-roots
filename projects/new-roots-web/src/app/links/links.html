@@ -12,8 +12,8 @@
                     fill="#4D4D4D" />
             </svg>
         </div>
-        @if (showSubLinks() && (link.subLinks?.length ?? 0) > 0) {
-        @for (subLink of link.subLinks; track subLink.route) {
+        @if (showSubLinks() && (link.children?.length ?? 0) > 0) {
+        @for (subLink of link.children; track subLink.route) {
         <a [routerLink]="subLink.route" class="sub-link" [class.is-hidden]="!link.isExpanded">{{ subLink.name }}</a>
         }
         }
