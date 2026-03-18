@@ -1,3 +1,13 @@
+<div id="breadcrumbs">
+    <a href="/" id="home">⬢</a>
+    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path
+            d="M4.3238 0.220418C4.02989 -0.073491 3.55344 -0.073454 3.25951 0.220418C2.96558 0.514345 2.96558 0.990781 3.25951 1.28471L7.08743 5.11312C7.57727 5.603 7.57729 6.39707 7.08743 6.88693L3.25951 10.7153C2.9656 11.0093 2.96559 11.4857 3.25951 11.7796C3.55344 12.0734 4.02991 12.0735 4.3238 11.7796L8.15172 7.95122C9.22945 6.87349 9.22945 5.12607 8.15172 4.04834L4.3238 0.220418Z"
+            fill="#4D4D4D" />
+    </svg>
+    <div id="breadcrumb" [style.--breadcrumb-color]="'var(--categories-positive-' + category() + ')'">{{category()}}
+    </div>
+</div>
 <div id="hero">
     @if (screen.screenWidth() > 0) {
     <div id="hexagons">
@@ -35,22 +45,12 @@
     </div>
     }
 </div>
-
-<div id="intro">
-    <h1 id="intro-heading">we lived to tell the tale...</h1>
-    <div>
-        Hello! Welcome to <span id="newroots">new roots</span>, a human-centred, inclusive platform that brings
-        together step-by-step guidance and essential information needed for settling into a new life in Sweden, in one
-        simple, intuitive experience.
-        <br><br>
-        Whether you are planning on moving to Sweden, have just arrived, or if you have already settled, you will find
-        all the essential information you need - plus useful related information, to help you on your journey.
-        <br><br>
-        We value your opinion and have built in a simple way for relaying feedback. Feel free to use it, if you think it
-        might help others navigating similar situations.
-        <br><br>
-        Beyond pure guidance, we are developing New Roots to be a personalised experience, and a destination where
-        internationals can connect, share and thrive in Sweden within a safe digital community. We are also working to
-        bring other culturally deep, rich experiences to the platform.
+<div id="outer-body">
+    <div id="inner-body">
+        <div id="intro">
+            <h1 id="intro-heading" [style.--heading-color]="'var(--categories-negative-' + category() + ')'">
+                {{category()}} in sweden</h1>
+            <div>{{links().find(link => link.name === category())?.desc}}</div>
+        </div>
     </div>
 </div>

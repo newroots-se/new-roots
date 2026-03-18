@@ -7,6 +7,8 @@ footer {
     border-top: 1px solid var(--border-on-neutral-default, #D5D8DD);
     background: var(--background-transparent-positive-60, rgba(255, 255, 255, 0.80));
     backdrop-filter: blur(32px);
+    // Custom
+    -webkit-backdrop-filter: blur(32px);
 }
 
 #copyright {
@@ -41,6 +43,8 @@ footer {
         border-top: 1px solid var(--border-on-neutral-default, #D5D8DD);
         background: var(--background-transparent-positive-60, rgba(255, 255, 255, 0.80));
         backdrop-filter: blur(32px);
+        // Custom
+        -webkit-backdrop-filter: blur(32px);
     }
 
     #copyright {
@@ -75,6 +79,8 @@ footer {
         border-top: 1px solid var(--border-on-neutral-default, #D5D8DD);
         background: var(--background-transparent-positive-60, rgba(255, 255, 255, 0.80));
         backdrop-filter: blur(32px);
+        // Custom
+        -webkit-backdrop-filter: blur(32px);
     }
 
     #copyright {
